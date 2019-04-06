@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:progress_hud/progress_hud.dart';
 
 abstract class CoreBuilder {
 
@@ -29,15 +28,6 @@ abstract class CoreBuilder {
             physics: AlwaysScrollableScrollPhysics(),
             child: buildErrorLayout(context, text),
           )),
-    );
-  }
-
-  ProgressHUD buildLoadingHUD() {
-    return ProgressHUD(
-      color: Colors.white,
-      containerColor: Colors.grey,
-      borderRadius: 5.0,
-      text: 'Ładowanie...',
     );
   }
 }

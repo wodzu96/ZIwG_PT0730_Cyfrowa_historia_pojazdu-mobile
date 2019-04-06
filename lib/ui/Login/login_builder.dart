@@ -1,8 +1,11 @@
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
-import 'package:cyfrowa_historia_pojazdu/services/validations.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
 import 'package:flutter/material.dart';
 
 class LoginBuilder with CoreBuilder, Validations {
+  String email;
+  String password;
+
   Widget buildRootLayout(context, bool isLoading, GlobalKey<FormState> formKey,
       Function onLoginButtonPressed, Function onSignupButtonPressed) {
     if (isLoading)
@@ -20,13 +23,12 @@ class LoginBuilder with CoreBuilder, Validations {
       children: <Widget>[
         buildLogo(),
         buildLoginForm(formKey),
-        buildButtonLayout(onLoginButtonPressed, onSignupButtonPressed)
+        buildButtonLayout(formKey, onLoginButtonPressed, onSignupButtonPressed)
       ],
     );
   }
 
-  Widget buildButtonLayout(
-      Function onLoginButtonPressed, Function onSignupButtonPressed) {
+  Widget buildButtonLayout(GlobalKey<FormState> formKey, Function onLoginButtonPressed, Function onSignupButtonPressed) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0, left: 48, right: 48),
       child: Column(
@@ -34,7 +36,10 @@ class LoginBuilder with CoreBuilder, Validations {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           RaisedButton(
-            onPressed: onLoginButtonPressed,
+            onPressed: () {
+              formKey.currentState.save();
+              onLoginButtonPressed(this.email, this.password);
+              },
             color: Colors.blueGrey,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
@@ -74,8 +79,10 @@ class LoginBuilder with CoreBuilder, Validations {
                   validator: (value) {
                     return validateEmail(value);
                   },
+                  onSaved: (value) => this.email = value,
                   decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: 'Podaj adres email',
+                      labelText: 'Email',
                       contentPadding:
                           EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0)))),
           Padding(
@@ -85,8 +92,10 @@ class LoginBuilder with CoreBuilder, Validations {
                     return validatePassword(value);
                   },
                   obscureText: true,
+                  onSaved: (value) => this.password = value,
                   decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: 'Podaj hasło',
+                      labelText: "Hasło",
                       contentPadding:
                           EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0))))
         ],
