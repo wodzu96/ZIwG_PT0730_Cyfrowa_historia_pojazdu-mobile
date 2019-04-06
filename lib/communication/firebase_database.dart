@@ -8,7 +8,6 @@ class FirebaseDatabaseService {
         .reference()
         .child('usersdata')
         .child(generateMd5(userData.email));
-    await usersReference.update(userData.toJson());
-    return "OK";
+    return usersReference.update(userData.toJson());
   }
 }
