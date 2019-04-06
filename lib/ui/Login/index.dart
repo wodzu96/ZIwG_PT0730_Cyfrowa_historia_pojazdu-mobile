@@ -1,12 +1,13 @@
+import 'package:cyfrowa_historia_pojazdu/communication/authentication.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
+import 'package:cyfrowa_historia_pojazdu/components/Buttons/roundedButton.dart';
+import 'package:cyfrowa_historia_pojazdu/components/Buttons/textButton.dart';
+import 'package:cyfrowa_historia_pojazdu/components/TextFields/inputField.dart';
+import 'package:cyfrowa_historia_pojazdu/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cyfrowa_historia_pojazdu/theme/style.dart';
+
 import 'style.dart';
-import 'package:cyfrowa_historia_pojazdu/components/TextFields/inputField.dart';
-import 'package:cyfrowa_historia_pojazdu/components/Buttons/textButton.dart';
-import 'package:cyfrowa_historia_pojazdu/components/Buttons/roundedButton.dart';
-import 'package:cyfrowa_historia_pojazdu/services/validations.dart';
-import 'package:cyfrowa_historia_pojazdu/services/authentication.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -20,7 +21,6 @@ class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ScrollController scrollController = new ScrollController();
-  UserData user = new UserData();
   UserAuth userAuth = new UserAuth();
   bool autovalidate = false;
   Validations validations = new Validations();
@@ -45,7 +45,7 @@ class LoginScreenState extends State<LoginScreen> {
       showInSnackBar('Please fix the errors in red before submitting.');
     } else {
       form.save();
-      userAuth.verifyUser(user).then((onValue) {
+      userAuth.verifyUser("p.wodzu96@gmail.com", "wodzu96").then((onValue) {
         if (onValue == "Login Successfull")
           Navigator.pushNamed(context, "/HomePage");
         else
@@ -110,7 +110,6 @@ class LoginScreenState extends State<LoginScreen> {
                                   bottomMargin: 20.0,
                                   validateFunction: validations.validateEmail,
                                   onSaved: (String email) {
-                                    user.email = email;
                                   }),
                               new InputField(
                                   hintText: "Password",
@@ -124,7 +123,6 @@ class LoginScreenState extends State<LoginScreen> {
                                   validateFunction:
                                       validations.validatePassword,
                                   onSaved: (String password) {
-                                    user.password = password;
                                   }),
                               new RoundedButton(
                                 buttonName: "Get Started",

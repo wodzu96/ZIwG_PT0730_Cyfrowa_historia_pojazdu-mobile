@@ -1,11 +1,12 @@
+import 'package:cyfrowa_historia_pojazdu/communication/authentication.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'style.dart';
 import 'package:cyfrowa_historia_pojazdu/components/TextFields/inputField.dart';
 import 'package:cyfrowa_historia_pojazdu/components/Buttons/textButton.dart';
 import 'package:cyfrowa_historia_pojazdu/components/Buttons/roundedButton.dart';
-import 'package:cyfrowa_historia_pojazdu/services/validations.dart';
-import 'package:cyfrowa_historia_pojazdu/services/authentication.dart';
 import 'package:cyfrowa_historia_pojazdu/theme/style.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,7 +19,8 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  UserData newUser = new UserData();
+  UserData newUser = new UserData("wodzu96", "piotr.wodzynski@holdapp.pl");
+  String password = "wodzu96";
   UserAuth userAuth = new UserAuth();
   bool _autovalidate = false;
   Validations _validations = new Validations();
@@ -39,7 +41,7 @@ class SignUpScreenState extends State<SignUpScreen> {
       showInSnackBar('Please fix the errors in red before submitting.');
     } else {
       form.save();
-      userAuth.createUser(newUser).then((onValue) {
+      userAuth.createUser(newUser, password).then((onValue) {
         showInSnackBar(onValue);
       }).catchError((PlatformException onError) {
         showInSnackBar(onError.message);
@@ -95,7 +97,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                 bottomMargin: 20.0,
                                 validateFunction: _validations.validateName,
                                 onSaved: (String name) {
-                                  newUser.displayName = name;
+                                  newUser.name = name;
                                 },
                               ),
                               new InputField(
@@ -123,7 +125,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                   validateFunction:
                                       _validations.validatePassword,
                                   onSaved: (String password) {
-                                    newUser.password = password;
+                                    this.password = password;
                                   }),
                               new RoundedButton(
                                   buttonName: "Continue",
