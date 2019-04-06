@@ -40,6 +40,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   void _handleSubmitted() {
     final FormState form = formKey.currentState;
+
     if (!form.validate()) {
       autovalidate = true; // Start validating on every change.
       showInSnackBar('Please fix the errors in red before submitting.');
@@ -109,8 +110,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   iconColor: Colors.white,
                                   bottomMargin: 20.0,
                                   validateFunction: validations.validateEmail,
-                                  onSaved: (String email) {
-                                  }),
+                                  onSaved: (String email) {}),
                               new InputField(
                                   hintText: "Password",
                                   obscureText: true,
@@ -122,8 +122,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   bottomMargin: 30.0,
                                   validateFunction:
                                       validations.validatePassword,
-                                  onSaved: (String password) {
-                                  }),
+                                  onSaved: (String password) {}),
                               new RoundedButton(
                                 buttonName: "Get Started",
                                 onTap: _handleSubmitted,

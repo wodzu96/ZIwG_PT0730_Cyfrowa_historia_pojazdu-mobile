@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cyfrowa_historia_pojazdu/communication/firebase_database.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
