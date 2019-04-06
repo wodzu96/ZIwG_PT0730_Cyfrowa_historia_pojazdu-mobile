@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "612644941968",
+    "firebase_url": "https://cyfrowa-historia-pojazdu.firebaseio.com",
+    "project_id": "cyfrowa-historia-pojazdu",
+    "storage_bucket": "cyfrowa-historia-pojazdu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612644941968:android:3b109fc075e2e163",
+        "android_client_info": {
+          "package_name": "com.w4.cyfrowahistoriapojazdu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6p-3tvUgoUSYu7WWBDJZ3nwzX48oolcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612644941968-tme47u9f20afcnom0c2ehqf78fpsbtc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
