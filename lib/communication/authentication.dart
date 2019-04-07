@@ -19,10 +19,9 @@ class UserAuth {
   }
 
   //To verify new User
-  Future<String> verifyUser(String email, String password) async {
+  Future<dynamic> verifyUser(String email, String password) async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    await firebaseAuth.signInWithEmailAndPassword(
+    return firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
-    return "Login Successfull";
   }
 }
