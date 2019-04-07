@@ -1,5 +1,6 @@
 import 'package:cyfrowa_historia_pojazdu/common/generateMd5.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,6 +62,32 @@ class FirebaseDatabaseService {
         .child(generateMd5(carName))
         .child("fixes")
         .child(generateMd5(fixName));
+    return usersReference.remove();
+  }
+
+  Future<dynamic> addDamageToCar(Damage damage, String carName) async {
+    final currentUser = await FirebaseAuth.instance.currentUser();
+    final usersReference = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(currentUser.uid)
+        .child('cars')
+        .child(generateMd5(carName))
+        .child("fixes")
+        .child(generateMd5(damage.name));
+    return usersReference.update(damage.toJson());
+  }
+
+  Future<dynamic> removeDamageFromCar(String damageName, String carName) async {
+    final currentUser = await FirebaseAuth.instance.currentUser();
+    final usersReference = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(currentUser.uid)
+        .child('cars')
+        .child(generateMd5(carName))
+        .child("fixes")
+        .child(generateMd5(damageName));
     return usersReference.remove();
   }
 }
