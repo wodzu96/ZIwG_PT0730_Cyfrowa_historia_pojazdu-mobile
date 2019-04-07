@@ -2,7 +2,6 @@ import 'package:cyfrowa_historia_pojazdu/core/core_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_builder.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_service.dart';
 import 'package:flutter/material.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
 
 class LoginScreen extends StatefulWidget
     implements CorePage<LoginBuilder, LoginService> {
@@ -44,21 +43,30 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void _performLogin(String email, String password) {
-            setState(() {
-        _isLoading = true;
-      });
+    _setStateLoading(true);
+    widget.service
+        .verifyUser(email, password)
+        .then((value) => _onLoginSuccess())
+        .catchError((dynamic error) => _onLoginError(error));
+  }
 
-      widget.service.verifyUser(email, password)
-      .then((value) {
-        setState(() {
-          _isLoading = false;
-        });
-        debugPrint(value);
-      }).catchError((error) {
-        setState(() {
-          _isLoading = false;
-        });
-        debugPrint(error);
-      });
+  void _onLoginError(dynamic error) {
+    _setStateLoading(false);
+    widget.builder.showErrorDialog(
+        context,
+        "Nie udało się zalogować. Dane logowania są niepoprawne, lub podany adres e-mail nie jest przypisany do istniejącego konta.",
+            () {});
+    print(error.details);
+  }
+
+  void _onLoginSuccess() {
+    _setStateLoading(false);
+    Navigator.of(context).pushNamed("/HomePage");
+  }
+
+  void _setStateLoading(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
   }
 }
