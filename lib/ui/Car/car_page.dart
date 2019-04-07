@@ -11,7 +11,7 @@ class CarPage extends StatefulWidget
     implements CorePage<CarPageBuilder, FirebaseDatabaseService> {
   CarPage({Key, key, @required this.car}) :super(key: key);
   Car car;
-  
+
 
   final List<String> tabTitles = ["Zmiany", "Uszkdzenia"];
   final List<Widget> tabButtons = [
