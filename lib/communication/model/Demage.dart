@@ -9,11 +9,11 @@ class Damage {
 
   Damage(this.name, this.description, this.course, this.damageDate);
 
-  Damage.fromSnapshot(DataSnapshot snapshot) :
-        name = snapshot.value["name"],
-        description = snapshot.value["description"],
-        course = snapshot.value("course"),
-        damageDate = stringToDateTime(snapshot.value["damageDate"]);
+  Damage.fromMap(Map value) :
+        name = value["name"],
+        description = value["description"],
+        course = value["course"],
+        damageDate = stringToDateTime(value["damageDate"]);
 
   toJson() {
     return {

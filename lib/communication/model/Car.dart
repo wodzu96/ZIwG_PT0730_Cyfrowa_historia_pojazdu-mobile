@@ -9,11 +9,11 @@ class Car {
 
   Car(this.name, this.registerNumber, this.VIN, this.registerTime);
 
-  Car.fromSnapshot(DataSnapshot snapshot) :
-        name = snapshot.value["name"],
-        registerNumber = snapshot.value["registerNumber"],
-        VIN = snapshot.value("VIN"),
-        registerTime = stringToDateTime(snapshot.value["registerTime"]);
+  Car.fromMap(Map value) :
+        name = value["name"],
+        registerNumber = value["registerNumber"],
+        VIN = value["VIN"],
+        registerTime = stringToDateTime(value["registerTime"]);
 
   toJson() {
     return {

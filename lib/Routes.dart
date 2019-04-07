@@ -1,7 +1,7 @@
+import 'package:cyfrowa_historia_pojazdu/ui/Home/index.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/Login/login_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/SignUp/signup_page.dart';
 import 'package:flutter/material.dart';
-import 'package:cyfrowa_historia_pojazdu/ui/Login/login_page.dart';
-import 'package:cyfrowa_historia_pojazdu/ui/Home/index.dart';
 
 class Routes {
   var routes = <String, WidgetBuilder>{
@@ -14,9 +14,9 @@ class Routes {
       title: "Flutter Flat App",
       home: new LoginScreen(),
       theme: ThemeData(
-        brightness: Brightness.dark,
-        accentColor: Colors.white, 
-        buttonColor: Colors.green),
+          brightness: Brightness.dark,
+          accentColor: Colors.white,
+          buttonColor: Colors.green),
       routes: routes,
     ));
   }

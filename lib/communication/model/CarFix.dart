@@ -10,12 +10,12 @@ class CarFix {
 
   CarFix(this.name, this.description, this.course, this.fixDate, this.fixCategoryName);
 
-  CarFix.fromSnapshot(DataSnapshot snapshot) :
-        name = snapshot.value["name"],
-        description = snapshot.value["description"],
-        course = snapshot.value("course"),
-        fixCategoryName = snapshot.value["fixCategoryName"],
-        fixDate = stringToDateTime(snapshot.value["fixDate"]);
+  CarFix.fromMap(Map value) :
+        name = value["name"],
+        description = value["description"],
+        course = value["course"],
+        fixCategoryName = value["fixCategoryName"],
+        fixDate = stringToDateTime(value["fixDate"]);
 
   toJson() {
     return {
