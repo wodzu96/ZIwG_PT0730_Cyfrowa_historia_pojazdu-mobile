@@ -55,7 +55,7 @@ class LoginScreenState extends State<LoginScreen> {
     widget.builder.showErrorDialog(
         context,
         "Nie udało się zalogować. Dane logowania są niepoprawne, lub podany adres e-mail nie jest przypisany do istniejącego konta.",
-            () {});
+        () {});
     print(error.details);
   }
 

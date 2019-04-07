@@ -15,8 +15,8 @@ abstract class CoreBuilder {
     );
   }
 
-  Widget buildRefreshableErrorLayout(BuildContext context, String text,
-      Function refresh) {
+  Widget buildRefreshableErrorLayout(
+      BuildContext context, String text, Function refresh) {
     return Center(
       child: RefreshIndicator(
           onRefresh: refresh,

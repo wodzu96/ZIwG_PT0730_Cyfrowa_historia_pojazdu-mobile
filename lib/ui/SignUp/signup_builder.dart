@@ -17,8 +17,8 @@ class SignupBuilder with CoreBuilder, Validations {
       return buildDefaultLayout(formKey, onSignupButtonPressed);
   }
 
-  Widget buildDefaultLayout(GlobalKey<FormState> formKey,
-      Function onSignupButtonPressed) {
+  Widget buildDefaultLayout(
+      GlobalKey<FormState> formKey, Function onSignupButtonPressed) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,

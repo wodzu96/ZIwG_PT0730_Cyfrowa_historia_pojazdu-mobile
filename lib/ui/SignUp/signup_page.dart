@@ -52,7 +52,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     widget.builder.showErrorDialog(
         context,
         "Nie udało się utworzyć konta. Podany adres e-mail jest już zajęty.",
-            () {});
+        () {});
     print(error.details);
   }
 
@@ -60,9 +60,9 @@ class SignUpScreenState extends State<SignUpScreen> {
     _setStateLoading(false);
     widget.builder.showSuccessDialog(context,
         "Konto zostało pomyślnie utworzone. Moesz teraz zalogować się do serwisu.",
-            () {
-          Navigator.of(context).pop();
-        });
+        () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _setStateLoading(bool isLoading) {
