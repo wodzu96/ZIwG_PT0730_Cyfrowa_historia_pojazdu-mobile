@@ -6,9 +6,9 @@ class UserData {
 
   UserData(this.name, this.email);
 
-  UserData.fromSnapshot(DataSnapshot snapshot) :
-        name = snapshot.value["name"],
-        email = snapshot.value["email"];
+  UserData.fromMap(Map value) :
+        name = value["name"],
+        email = value["email"];
 
   toJson() {
     return {

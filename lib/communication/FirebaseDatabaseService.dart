@@ -27,6 +27,17 @@ class FirebaseDatabaseService {
     return reference.update(car.toJson());
   }
 
+  Future<UserData> getCurrentUser() async{
+    final currentUser = await FirebaseAuth.instance.currentUser();
+    final reference = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(currentUser.uid);
+    DataSnapshot snapshot = await reference.once();
+    final value = snapshot.value as Map;
+    return UserData.fromMap(value);
+  }
+
   Future<dynamic> removeCar(String carName) async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance

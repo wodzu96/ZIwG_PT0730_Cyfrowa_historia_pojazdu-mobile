@@ -1,4 +1,4 @@
-import 'package:cyfrowa_historia_pojazdu/ui/Home/index.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/SignUp/signup_page.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class Routes {
   var routes = <String, WidgetBuilder>{
     "/SignUp": (BuildContext context) => new SignUpScreen(),
-    "/HomePage": (BuildContext context) => new HomeScreen()
+    "/HomePage": (BuildContext context) => new HomePage()
   };
 
   Routes() {
     runApp(new MaterialApp(
       title: "Flutter Flat App",
-      home: new LoginScreen(),
+      home: new HomePage(),
       theme: ThemeData(
           brightness: Brightness.dark,
           accentColor: Colors.white,
