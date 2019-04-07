@@ -19,6 +19,7 @@ class LoginScreen extends StatefulWidget
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool _formAutoValidate = false;
   bool _isLoading = false;
 
   @override
@@ -28,13 +29,21 @@ class LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: Text("Zaloguj się"),
         ),
-        body: widget.builder.buildRootLayout(context, _isLoading, _formKey,
-            _onLoginButtonPressed, _onSignupButtonPressed));
+        body: SafeArea(
+            child: widget.builder.buildRootLayout(
+                context,
+                _isLoading,
+                _formKey,
+                _formAutoValidate,
+                _onLoginButtonPressed,
+                _onSignupButtonPressed)));
   }
 
   void _onLoginButtonPressed(String email, String password) {
     if (_formKey.currentState.validate()) {
       _performLogin(email, password);
+    } else {
+      _setStateAutoValidateForm(true);
     }
   }
 
@@ -67,6 +76,12 @@ class LoginScreenState extends State<LoginScreen> {
   void _setStateLoading(bool isLoading) {
     setState(() {
       _isLoading = isLoading;
+    });
+  }
+
+  void _setStateAutoValidateForm(bool autoValidate) {
+    setState(() {
+      _formAutoValidate = autoValidate;
     });
   }
 }

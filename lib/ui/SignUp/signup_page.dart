@@ -20,6 +20,7 @@ class SignUpScreen extends StatefulWidget
 
 class SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool _formAutoValidate = false;
   bool _isLoading = false;
 
   @override
@@ -29,13 +30,15 @@ class SignUpScreenState extends State<SignUpScreen> {
         appBar: AppBar(
           title: Text("Utwórz konto"),
         ),
-        body: widget.builder.buildRootLayout(
-            context, _isLoading, _formKey, _onSignupButtonPressed));
+        body: widget.builder.buildRootLayout(context, _isLoading, _formKey,
+            _formAutoValidate, _onSignupButtonPressed));
   }
 
   void _onSignupButtonPressed(String name, String email, String password) {
     if (_formKey.currentState.validate()) {
       _performSignup(UserData(name, email), password);
+    } else {
+      _setStateAutoValidateForm(true);
     }
   }
 
@@ -68,6 +71,12 @@ class SignUpScreenState extends State<SignUpScreen> {
   void _setStateLoading(bool isLoading) {
     setState(() {
       _isLoading = isLoading;
+    });
+  }
+
+  void _setStateAutoValidateForm(bool autoValidate) {
+    setState(() {
+      _formAutoValidate = autoValidate;
     });
   }
 }
