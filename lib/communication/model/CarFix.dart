@@ -23,7 +23,7 @@ class CarFix {
       "description": description,
       "course": course,
       "fixCategoryName": fixCategoryName,
-      "DateTime": dateTimeToString(fixDate)
+      "fixDate": dateTimeToString(fixDate)
     };
   }
 }

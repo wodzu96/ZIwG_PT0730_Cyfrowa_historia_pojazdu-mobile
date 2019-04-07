@@ -1,6 +1,7 @@
 import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/DamagesList/damages_list_page_builder.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page_builder.dart';
@@ -28,7 +29,7 @@ class _DamagesPageState extends State<DamagesPage>
 
   _DamagesPageState(this.car);
 
-  List<CarFix> _fixes;
+  List<Damage> _damages;
   Error _error;
 
   @override
@@ -43,14 +44,14 @@ class _DamagesPageState extends State<DamagesPage>
   @override
   Widget build(BuildContext context) {
     return widget.builder
-        .buildRootLayout(context, _fixes, _error, _refresh);
+        .buildRootLayout(context, _damages, _error, _refresh);
   }
 
   Future<dynamic> _refresh() async {
     try {
-      List<CarFix> fixes = await widget.service.getCarDamages(car.name);
+      List<Damage> damages = await widget.service.getCarDamages(car.name);
       setState(() {
-        _fixes = fixes;
+        _damages = damages;
         _error = null;
       });
     } catch (error) {

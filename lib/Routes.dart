@@ -1,3 +1,6 @@
+import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/SignUp/signup_page.dart';

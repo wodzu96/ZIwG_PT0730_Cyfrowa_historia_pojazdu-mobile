@@ -1,6 +1,5 @@
 import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +9,8 @@ class DamagesPageBuilder with CoreBuilder {
 
   DamagesPageBuilder(this.car);
 
-  Widget buildRootLayout(
-      BuildContext context, List<Damage> damages, Error error, Function refresh) {
+  Widget buildRootLayout(BuildContext context, List<Damage> damages,
+      Error error, Function refresh) {
     if (error != null)
       return buildRefreshableErrorLayout(context, error.toString(), refresh);
     else if (damages == null || car == null)
