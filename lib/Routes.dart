@@ -17,9 +17,10 @@ class Routes {
       title: "Flutter Flat App",
       home: new HomePage(),
       theme: ThemeData(
-          brightness: Brightness.dark,
-          accentColor: Colors.white,
-          buttonColor: Colors.green),
+        primarySwatch: Colors.blueGrey,
+        brightness: Brightness.dark,
+        accentColor: Colors.white,
+      ),
       routes: routes,
     ));
   }
