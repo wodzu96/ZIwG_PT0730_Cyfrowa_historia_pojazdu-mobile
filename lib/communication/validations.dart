@@ -23,4 +23,14 @@ class Validations {
     if (value != password) return 'Hasła nie są takie same';
     return null;
   }
+
+  String validateNumber(String value) {
+    if (value.isEmpty) return 'Wymagane';
+    try {
+      int.parse(value);
+      return null;
+    } catch (error) {
+      return 'Wprowadź prawidłową wartość';
+    }
+  }
 }

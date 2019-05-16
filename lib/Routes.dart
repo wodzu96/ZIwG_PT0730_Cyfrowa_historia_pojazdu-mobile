@@ -1,4 +1,4 @@
-import 'package:cyfrowa_historia_pojazdu/ui/CarDamageDetails/car_damage_details_page.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarFixCreate/car_fix_create_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/SignUp/signup_page.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,9 @@ class Routes {
   Routes() {
     runApp(new MaterialApp(
       title: "Flutter Flat App",
-      home: new CarDamageDetailsScreen(),
+      home: new CarFixCreateScreen(
+        carName: "ASD",
+      ),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
