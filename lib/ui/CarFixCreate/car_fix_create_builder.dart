@@ -46,21 +46,16 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
       padding: EdgeInsets.symmetric(horizontal: 32.0),
       children: <Widget>[
         SizedBox(height: 32.0),
-        buildLoginForm(
-            formKey,
-            formAutoValidate,
-            context,
-            fixDate,
-            onDateChanged,
-            fixCategory,
-            onCategoryChanged),
+        buildLoginForm(formKey, formAutoValidate, context, fixDate,
+            onDateChanged, fixCategory, onCategoryChanged),
         SizedBox(height: 32.0),
         buildSignupButton(formKey, onSignupButtonPressed)
       ],
     );
   }
 
-  Widget buildLoginForm(GlobalKey<FormState> formKey,
+  Widget buildLoginForm(
+      GlobalKey<FormState> formKey,
       bool formAutoValidate,
       BuildContext context,
       DateTime fixDate,
@@ -154,8 +149,8 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
         ));
   }
 
-  Future<Null> _selectDate(BuildContext context, DateTime fixDate,
-      Function onDateChanged) async {
+  Future<Null> _selectDate(
+      BuildContext context, DateTime fixDate, Function onDateChanged) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: fixDate,
@@ -168,8 +163,8 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
     }
   }
 
-  void showCategorySelectionDialog(BuildContext context,
-      Function onCategoryChanged) {
+  void showCategorySelectionDialog(
+      BuildContext context, Function onCategoryChanged) {
     SimpleDialog dialog = SimpleDialog(
       title: const Text('Wybierz kategorię'),
       children: <Widget>[
@@ -192,8 +187,8 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
     );
   }
 
-  SimpleDialogOption getOption(BuildContext context, String category,
-      Function onCategoryChanged) {
+  SimpleDialogOption getOption(
+      BuildContext context, String category, Function onCategoryChanged) {
     return SimpleDialogOption(
         child: SizedBox(
           height: 40,

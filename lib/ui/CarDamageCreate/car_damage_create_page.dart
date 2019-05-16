@@ -50,8 +50,8 @@ class CarDamageCreateScreenState extends State<CarDamageCreateScreen> {
     });
   }
 
-  void _onCarDamageCreateButtonPressed(String name, String description,
-      String course) {
+  void _onCarDamageCreateButtonPressed(
+      String name, String description, String course) {
     if (_formKey.currentState.validate()) {
       _performCarDamageCreate(
           CarDamage(name, description, int.parse(course), _damageDate),

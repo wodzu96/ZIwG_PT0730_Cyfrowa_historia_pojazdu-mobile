@@ -64,7 +64,7 @@ class _CarPageState extends State<CarPage>
           .buildHomePageAppBar(widget.tabTitles[_currentTabSelected]),
       body: TabBarView(controller: _tabController, children: tabViews),
       bottomNavigationBar:
-      TabBar(controller: _tabController, tabs: widget.tabButtons),
+          TabBar(controller: _tabController, tabs: widget.tabButtons),
     );
   }
 

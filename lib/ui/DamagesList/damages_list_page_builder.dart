@@ -33,8 +33,8 @@ class DamagesPageBuilder with CoreBuilder {
         ));
   }
 
-  List<Widget> getWidgetsInList(List<CarDamage> damages, Car car,
-      BuildContext context) {
+  List<Widget> getWidgetsInList(
+      List<CarDamage> damages, Car car, BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
     widgets.addAll(
         damages.map((damage) => _buildFixCard(context, damage)).toList());
@@ -71,8 +71,7 @@ class DamagesPageBuilder with CoreBuilder {
         child: new InkWell(
             onTap: () {
               Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (context) =>
-                      CarDamageDetailsScreen(
+                  builder: (context) => CarDamageDetailsScreen(
                         carDamage: damage,
                         carName: car.name,
                       )));

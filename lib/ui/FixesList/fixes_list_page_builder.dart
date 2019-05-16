@@ -33,8 +33,8 @@ class FixesPageBuilder with CoreBuilder {
         ));
   }
 
-  List<Widget> getWidgetsInList(List<CarFix> fixes, Car car,
-      BuildContext context) {
+  List<Widget> getWidgetsInList(
+      List<CarFix> fixes, Car car, BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
     widgets.addAll(fixes.map((fix) => _buildFixCard(context, fix)).toList());
     widgets.add(_buildAddCard(context, car.name));

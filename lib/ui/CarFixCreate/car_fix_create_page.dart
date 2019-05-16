@@ -58,8 +58,8 @@ class CarFixCreateScreenState extends State<CarFixCreateScreen> {
     });
   }
 
-  void _onCarFixCreateButtonPressed(String name, String description,
-      String course) {
+  void _onCarFixCreateButtonPressed(
+      String name, String description, String course) {
     if (_formKey.currentState.validate()) {
       _performCarFixCreate(
           CarFix(name, description, int.parse(course), this._fixDate,
