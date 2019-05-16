@@ -9,14 +9,19 @@ import 'package:flutter/material.dart';
 
 class CarPage extends StatefulWidget
     implements CorePage<CarPageBuilder, FirebaseDatabaseService> {
-  CarPage({Key, key, @required this.car}) :super(key: key);
+  CarPage({Key, key, @required this.car}) : super(key: key);
   Car car;
 
-
-  final List<String> tabTitles = ["Zmiany", "Uszkodzenia"];
+  final List<String> tabTitles = ["Naprawy", "Uszkodzenia"];
   final List<Widget> tabButtons = [
-    Tab(icon: Icon(Icons.adjust), text: "Zmiany",),
-    Tab(icon: Icon(Icons.today), text: "Uszkodzenia",)
+    Tab(
+      icon: Icon(Icons.build),
+      text: "Naprawy",
+    ),
+    Tab(
+      icon: Icon(Icons.offline_bolt),
+      text: "Uszkodzenia",
+    )
   ];
 
   @override
@@ -58,8 +63,8 @@ class _CarPageState extends State<CarPage>
       appBar: widget.builder
           .buildHomePageAppBar(widget.tabTitles[_currentTabSelected]),
       body: TabBarView(controller: _tabController, children: tabViews),
-      bottomNavigationBar: TabBar(
-          controller: _tabController, tabs: widget.tabButtons),
+      bottomNavigationBar:
+          TabBar(controller: _tabController, tabs: widget.tabButtons),
     );
   }
 

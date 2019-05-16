@@ -26,7 +26,6 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-
     _checkIfLoggedIn();
   }
 
@@ -93,8 +92,8 @@ class LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<dynamic> _checkIfLoggedIn()async {
-    if(await FirebaseAuth.instance.currentUser() != null){
+  Future<dynamic> _checkIfLoggedIn() async {
+    if (await FirebaseAuth.instance.currentUser() != null) {
       Navigator.of(context).pushNamed("/HomePage");
     }
   }

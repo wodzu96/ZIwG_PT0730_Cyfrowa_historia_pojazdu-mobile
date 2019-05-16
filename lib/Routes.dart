@@ -11,7 +11,7 @@ class Routes {
 
   Routes() {
     runApp(new MaterialApp(
-      title: "Flutter Flat App",
+      title: "Cyfrowa Historia Pojazdu",
       home: new LoginScreen(),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,

@@ -2,6 +2,7 @@ import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarFixCreate/car_fix_create_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/CarFixDetails/car_fix_details_page.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,8 @@ class FixesPageBuilder with CoreBuilder {
         ));
   }
 
-  List<Widget> getWidgetsInList(List<CarFix> fixes, Car car, BuildContext context) {
+  List<Widget> getWidgetsInList(
+      List<CarFix> fixes, Car car, BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
     widgets.addAll(fixes.map((fix) => _buildFixCard(context, fix)).toList());
     widgets.add(_buildAddCard(context, car.name));
@@ -44,7 +46,8 @@ class FixesPageBuilder with CoreBuilder {
       margin: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: new InkWell(
           onTap: () {
-            // TODO: Igor masz context nak...
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CarFixCreateScreen(carName: carName)));
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,25 +64,26 @@ class FixesPageBuilder with CoreBuilder {
     );
   }
 
-
   Widget _buildFixCard(BuildContext context, CarFix fix) {
     return Card(
-        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
-    child: new InkWell(
-    onTap: (){
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => CarFixDetailsScreen(carFix: fix, carName: car.name)));
-    },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildCardHeader(Icons.build, fix.course.toString() + "km",
-                dateTimeToString(fix.fixDate)),
-            _buildCardBody(fix.name),
-            Padding(
-              padding: EdgeInsets.only(bottom: 16),
-            )
-          ],
-        )),
+      margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+      child: new InkWell(
+          onTap: () {
+            Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) =>
+                    CarFixDetailsScreen(carFix: fix, carName: car.name)));
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _buildCardHeader(Icons.adjust, fix.course.toString() + " km",
+                  dateTimeToString(fix.fixDate)),
+              _buildCardBody(fix.name),
+              Padding(
+                padding: EdgeInsets.only(bottom: 16),
+              )
+            ],
+          )),
     );
   }
 
@@ -113,7 +117,7 @@ class FixesPageBuilder with CoreBuilder {
     return Text(text, textAlign: TextAlign.center, style: _cardBodyTextStyle());
   }
 
-  Icon _buildAddBody(){
+  Icon _buildAddBody() {
     return Icon(Icons.add, size: 48);
   }
 

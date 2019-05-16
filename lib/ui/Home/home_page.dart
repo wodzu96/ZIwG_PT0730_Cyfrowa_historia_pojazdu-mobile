@@ -1,7 +1,5 @@
 import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page_builder.dart';
@@ -39,11 +37,23 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder.buildRootLayout(context, _cars, _userData, _error, _refresh);
+    return WillPopScope(
+        onWillPop: () {
+          widget.builder.showExitDialog(context);
+        },
+        child: Scaffold(
+          primary: true,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text("Moje pojazdy"),
+          ),
+          body: widget.builder
+              .buildRootLayout(context, _cars, _userData, _error, _refresh),
+        ));
   }
 
   Future<dynamic> _refresh() async {
-    try{
+    try {
       UserData userData = await widget.service.getCurrentUser();
       List<Car> cars = await widget.service.getCars();
       setState(() {
@@ -51,8 +61,7 @@ class _HomePageState extends State<HomePage>
         _cars = cars;
         _error = null;
       });
-    }
-    catch(error){
+    } catch (error) {
       setState(() {
         _error = error;
       });

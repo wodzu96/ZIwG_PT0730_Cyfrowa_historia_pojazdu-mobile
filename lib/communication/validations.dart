@@ -23,4 +23,9 @@ class Validations {
     if (value != password) return 'Hasła nie są takie same';
     return null;
   }
+
+  String validateEmpty(String value) {
+    if (value.isEmpty) return 'Wymagane';
+    return null;
+  }
 }
