@@ -2,6 +2,7 @@ import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarDamageDetails/car_damage_details_page.dart';
 import 'package:flutter/material.dart';
 
 class DamagesPageBuilder with CoreBuilder {
@@ -27,30 +28,58 @@ class DamagesPageBuilder with CoreBuilder {
           constraints: BoxConstraints.expand(),
           child: ListView(
               physics: AlwaysScrollableScrollPhysics(),
-              children: getWidgetsInList(damages, car)),
+              children: getWidgetsInList(damages, car, context)),
         ));
   }
 
-  List<Widget> getWidgetsInList(List<CarDamage> damages, Car car) {
+  List<Widget> getWidgetsInList(List<CarDamage> damages, Car car,
+      BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
-    widgets.addAll(damages.map((damage) => _buildFixCard(damage)).toList());
+    widgets.addAll(
+        damages.map((damage) => _buildFixCard(context, damage)).toList());
+    widgets.add(_buildAddCard());
     return widgets;
   }
 
-  Widget _buildFixCard(CarDamage damage) {
+  Widget _buildAddCard() {
     return Card(
         margin: EdgeInsets.only(left: 8, right: 8, top: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildCardHeader(Icons.accessible, damage.course.toString() + "km",
-                dateTimeToString(damage.damageDate)),
-            _buildCardBody(damage.name),
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+            ),
+            _buildAddBody(),
             Padding(
               padding: EdgeInsets.only(bottom: 16),
             )
           ],
         ));
+  }
+
+  Widget _buildFixCard(BuildContext context, CarDamage damage) {
+    return Card(
+        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+        child: new InkWell(
+            onTap: () {
+              Navigator
+                  .of(context)
+                  .push(new MaterialPageRoute(builder: (context) =>
+                  CarDamageDetailsScreen(carDamage: damage, carName: car.name,)));
+              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _buildCardHeader(
+                    Icons.accessible, damage.course.toString() + "km",
+                    dateTimeToString(damage.damageDate)),
+                _buildCardBody(damage.name),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                )
+              ]))
+    );
   }
 
   Widget _buildCarCard(Car car) {
@@ -81,6 +110,10 @@ class DamagesPageBuilder with CoreBuilder {
 
   Text _buildCardBody(String text) {
     return Text(text, textAlign: TextAlign.center, style: _cardBodyTextStyle());
+  }
+
+  Icon _buildAddBody() {
+    return Icon(Icons.add, size: 48);
   }
 
   TextStyle _cardBodyTextStyle() {

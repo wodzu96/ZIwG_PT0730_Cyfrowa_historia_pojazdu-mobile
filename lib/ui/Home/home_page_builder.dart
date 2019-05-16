@@ -30,7 +30,25 @@ class HomePageBuilder with CoreBuilder {
   List<Widget> getWidgetsInList(BuildContext context, List<Car> cars, UserData userData) {
     List<Widget> widgets = [_buildUserDataCard(userData)];
     widgets.addAll(cars.map((car) => _buildCarCard(context, car)).toList());
+    widgets.add(_buildAddCard());
     return widgets;
+  }
+
+  Widget _buildAddCard() {
+    return Card(
+        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+            ),
+            _buildAddBody(),
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+            )
+          ],
+        ));
   }
 
   Widget _buildUserDataCard(UserData userData) {
@@ -82,6 +100,10 @@ class HomePageBuilder with CoreBuilder {
 
   Text _buildCardBody(String text) {
     return Text(text, textAlign: TextAlign.center, style: _cardBodyTextStyle());
+  }
+
+  Icon _buildAddBody(){
+    return Icon(Icons.add, size: 48);
   }
 
   TextStyle _cardBodyTextStyle() {

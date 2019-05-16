@@ -2,6 +2,7 @@ import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarFixDetails/car_fix_details_page.dart';
 import 'package:flutter/material.dart';
 
 class FixesPageBuilder with CoreBuilder {
@@ -27,19 +28,42 @@ class FixesPageBuilder with CoreBuilder {
           constraints: BoxConstraints.expand(),
           child: ListView(
               physics: AlwaysScrollableScrollPhysics(),
-              children: getWidgetsInList(fixes, car)),
+              children: getWidgetsInList(fixes, car, context)),
         ));
   }
 
-  List<Widget> getWidgetsInList(List<CarFix> fixes, Car car) {
+  List<Widget> getWidgetsInList(List<CarFix> fixes, Car car, BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
-    widgets.addAll(fixes.map((fix) => _buildFixCard(fix)).toList());
+    widgets.addAll(fixes.map((fix) => _buildFixCard(context, fix)).toList());
+    widgets.add(_buildAddCard());
     return widgets;
   }
 
-  Widget _buildFixCard(CarFix fix) {
+  Widget _buildAddCard() {
     return Card(
         margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+            ),
+            _buildAddBody(),
+            Padding(
+              padding: EdgeInsets.only(bottom: 16),
+            )
+          ],
+        ));
+  }
+
+
+  Widget _buildFixCard(BuildContext context, CarFix fix) {
+    return Card(
+        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+    child: new InkWell(
+    onTap: (){
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => CarFixDetailsScreen(carFix: fix, carName: car.name)));
+    },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -50,7 +74,8 @@ class FixesPageBuilder with CoreBuilder {
               padding: EdgeInsets.only(bottom: 16),
             )
           ],
-        ));
+        )),
+    );
   }
 
   Widget _buildCarCard(Car car) {
@@ -81,6 +106,10 @@ class FixesPageBuilder with CoreBuilder {
 
   Text _buildCardBody(String text) {
     return Text(text, textAlign: TextAlign.center, style: _cardBodyTextStyle());
+  }
+
+  Icon _buildAddBody(){
+    return Icon(Icons.add, size: 48);
   }
 
   TextStyle _cardBodyTextStyle() {

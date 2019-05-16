@@ -12,7 +12,7 @@ class Routes {
   Routes() {
     runApp(new MaterialApp(
       title: "Flutter Flat App",
-      home: new CarDamageDetailsScreen(),
+      home: new HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,

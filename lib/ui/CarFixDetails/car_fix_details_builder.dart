@@ -1,3 +1,4 @@
+import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
@@ -6,14 +7,16 @@ import 'package:intl/intl.dart';
 
 class CarFixDetailsBuilder with CoreBuilder, Validations {
   Widget buildRootLayout(
+      FirebaseDatabaseService service, String carName,
       context, bool isLoading, Function refresh, CarFix carFix) {
     if (isLoading)
       return buildLoadingLayout(context);
     else
-      return buildDefaultLayout(context, refresh, carFix);
+      return buildDefaultLayout(service, carName, context, refresh, carFix);
   }
 
   Widget buildDefaultLayout(
+      FirebaseDatabaseService service, String carName,
       BuildContext context, Function refresh, CarFix carFix) {
     return RefreshIndicator(
         onRefresh: refresh,
@@ -26,6 +29,7 @@ class CarFixDetailsBuilder with CoreBuilder, Validations {
               _buildCategoryCard(carFix),
               _buildCourseCard(carFix),
               _buildDescriptionCard(carFix),
+              _buildDeleteCard(context, service, carFix.name, carName),
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
               )
@@ -134,5 +138,29 @@ class CarFixDetailsBuilder with CoreBuilder, Validations {
           height: 2.0,
           color: Colors.black54,
         ));
+  }
+
+  Widget _buildDeleteCard(context, FirebaseDatabaseService service, String fixName, String carName) {
+    return Card(
+      margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+      child: new InkWell(
+          onTap: () {
+            _removeFix(service, fixName, carName);
+            Navigator.of(context).pop();
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[_buildCardBody("Usuń")],
+          )),
+    );
+  }
+
+  Future<dynamic> _removeFix(FirebaseDatabaseService service, String fixName, String carName) async{
+    try{
+      await service.removeFixFromCar(fixName, carName);
+    }
+    catch(error){
+
+    }
   }
 }

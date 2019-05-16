@@ -13,10 +13,10 @@ class CarPage extends StatefulWidget
   Car car;
 
 
-  final List<String> tabTitles = ["Zmiany", "Uszkdzenia"];
+  final List<String> tabTitles = ["Zmiany", "Uszkodzenia"];
   final List<Widget> tabButtons = [
     Tab(icon: Icon(Icons.adjust), text: "Zmiany",),
-    Tab(icon: Icon(Icons.today), text: "Uszkdzenia",)
+    Tab(icon: Icon(Icons.today), text: "Uszkodzenia",)
   ];
 
   @override

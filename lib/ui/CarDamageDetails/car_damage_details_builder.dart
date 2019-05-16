@@ -1,3 +1,4 @@
+import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/validations.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
@@ -5,15 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CarDamageDetailsBuilder with CoreBuilder, Validations {
-  Widget buildRootLayout(
+  Widget buildRootLayout(FirebaseDatabaseService service, String carName,
       context, bool isLoading, Function refresh, CarDamage carDamage) {
     if (isLoading)
       return buildLoadingLayout(context);
     else
-      return buildDefaultLayout(context, refresh, carDamage);
+      return buildDefaultLayout(service, carName, context, refresh, carDamage);
   }
 
   Widget buildDefaultLayout(
+  FirebaseDatabaseService service, String carName,
       BuildContext context, Function refresh, CarDamage carDamage) {
     return RefreshIndicator(
         onRefresh: refresh,
@@ -25,6 +27,7 @@ class CarDamageDetailsBuilder with CoreBuilder, Validations {
               _buildEntryTimeCard(carDamage),
               _buildCourseCard(carDamage),
               _buildDescriptionCard(carDamage),
+              _buildDeleteCard(context, service, carDamage.name, carName),
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
               )
@@ -89,6 +92,21 @@ class CarDamageDetailsBuilder with CoreBuilder, Validations {
         ));
   }
 
+  Widget _buildDeleteCard(context, FirebaseDatabaseService service, String damageName, String carName) {
+    return Card(
+      margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+      child: new InkWell(
+          onTap: () {
+            _removeDamage(service, damageName, carName);
+            Navigator.of(context).pop();
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[_buildCardBody("Usuń")],
+          )),
+    );
+  }
+
   ListTile _buildCardHeader(IconData iconData, String title, String subtitle) {
     return ListTile(
       leading: Icon(
@@ -118,5 +136,14 @@ class CarDamageDetailsBuilder with CoreBuilder, Validations {
           height: 2.0,
           color: Colors.black54,
         ));
+  }
+
+  Future<dynamic> _removeDamage(FirebaseDatabaseService service, String damageName, String carName) async{
+    try{
+      await service.removeDamageFromCar(damageName, carName);
+    }
+    catch(error){
+
+    }
   }
 }
