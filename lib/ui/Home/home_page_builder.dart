@@ -27,28 +27,34 @@ class HomePageBuilder with CoreBuilder {
         ));
   }
 
-  List<Widget> getWidgetsInList(BuildContext context, List<Car> cars, UserData userData) {
+  List<Widget> getWidgetsInList(
+      BuildContext context, List<Car> cars, UserData userData) {
     List<Widget> widgets = [_buildUserDataCard(userData)];
     widgets.addAll(cars.map((car) => _buildCarCard(context, car)).toList());
-    widgets.add(_buildAddCard());
+    widgets.add(_buildAddCard(context));
     return widgets;
   }
 
-  Widget _buildAddCard() {
+  Widget _buildAddCard(context) {
     return Card(
-        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 16),
-            ),
-            _buildAddBody(),
-            Padding(
-              padding: EdgeInsets.only(bottom: 16),
-            )
-          ],
-        ));
+      margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+      child: new InkWell(
+          onTap: () {
+            // TODO: Igor masz context nak...
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 16),
+              ),
+              _buildAddBody(),
+              Padding(
+                padding: EdgeInsets.only(bottom: 16),
+              )
+            ],
+          )),
+    );
   }
 
   Widget _buildUserDataCard(UserData userData) {
@@ -70,8 +76,9 @@ class HomePageBuilder with CoreBuilder {
     return Card(
       margin: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: new InkWell(
-        onTap: (){
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) => CarPage(car: car)));
+        onTap: () {
+          Navigator.of(context).push(
+              new MaterialPageRoute(builder: (context) => CarPage(car: car)));
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,7 +109,7 @@ class HomePageBuilder with CoreBuilder {
     return Text(text, textAlign: TextAlign.center, style: _cardBodyTextStyle());
   }
 
-  Icon _buildAddBody(){
+  Icon _buildAddBody() {
     return Icon(Icons.add, size: 48);
   }
 

@@ -35,25 +35,30 @@ class FixesPageBuilder with CoreBuilder {
   List<Widget> getWidgetsInList(List<CarFix> fixes, Car car, BuildContext context) {
     List<Widget> widgets = [_buildCarCard(car)];
     widgets.addAll(fixes.map((fix) => _buildFixCard(context, fix)).toList());
-    widgets.add(_buildAddCard());
+    widgets.add(_buildAddCard(context, car.name));
     return widgets;
   }
 
-  Widget _buildAddCard() {
+  Widget _buildAddCard(context, String carName) {
     return Card(
-        margin: EdgeInsets.only(left: 8, right: 8, top: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 16),
-            ),
-            _buildAddBody(),
-            Padding(
-              padding: EdgeInsets.only(bottom: 16),
-            )
-          ],
-        ));
+      margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+      child: new InkWell(
+          onTap: () {
+            // TODO: Igor masz context nak...
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 16),
+              ),
+              _buildAddBody(),
+              Padding(
+                padding: EdgeInsets.only(bottom: 16),
+              )
+            ],
+          )),
+    );
   }
 
 
