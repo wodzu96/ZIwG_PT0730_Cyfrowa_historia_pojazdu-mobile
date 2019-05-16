@@ -144,7 +144,7 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
         child: RaisedButton(
           onPressed: () {
             formKey.currentState.save();
-            onPressed(this.name, this.description, this.course, this.fixDate);
+            onPressed(this.name, this.description, this.course);
           },
           color: Colors.blueGrey,
           shape: RoundedRectangleBorder(

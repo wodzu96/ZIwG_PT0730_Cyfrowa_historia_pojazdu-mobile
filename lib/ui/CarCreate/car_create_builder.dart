@@ -3,11 +3,11 @@ import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class CarDamageCreateBuilder with CoreBuilder, Validations {
+class CarCreateBuilder with CoreBuilder, Validations {
   String name;
-  String description;
-  String course;
-  DateTime damageDate;
+  String registration;
+  String vin;
+  DateTime date;
 
   Widget buildRootLayout(
       context,
@@ -65,9 +65,10 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
                   validator: (value) {
                     return validateName(value);
                   },
-                  onSaved: (value) => this.description = value,
+                  onSaved: (value) => this.registration = value,
                   decoration: InputDecoration(
-                      hintText: 'Opisz uszkodzenie', labelText: "Opis"))),
+                      hintText: 'Podaj numer rejestracyjny',
+                      labelText: "Rejestracja"))),
           SizedBox(
               height: 80.0,
               child: TextFormField(
@@ -75,11 +76,10 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
                   validator: (value) {
                     return validateEmpty(value);
                   },
-                  onSaved: (value) => this.course = value,
+                  onSaved: (value) => this.vin = value,
                   inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
-                      hintText: 'Podaj aktualny przebieg',
-                      labelText: "Przebieg"))),
+                      hintText: 'Podaj numer VIN', labelText: "VIN"))),
           SizedBox(
             height: 80.0,
             child: GestureDetector(
@@ -90,7 +90,7 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
                         text: damageDate.toString().substring(0, 10)),
                     decoration: InputDecoration(
                         hintText: 'Dotknij, aby wybrać datę',
-                        labelText: "Data powstania usterki")),
+                        labelText: "Data rejestracji")),
               ),
             ),
           )
@@ -99,24 +99,25 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
     );
   }
 
-  Widget buildSignupButton(GlobalKey<FormState> formKey, Function onPressed) {
+  Widget buildSignupButton(
+      GlobalKey<FormState> formKey, Function onButtonPressed) {
     return SizedBox(
         height: 48.0,
         child: RaisedButton(
           onPressed: () {
             formKey.currentState.save();
-            onPressed(this.name, this.description, this.course);
+            onButtonPressed(this.name, this.registration, this.vin);
           },
           color: Colors.blueGrey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Text('Dodaj usterkę', style: TextStyle(color: Colors.white)),
+          child: Text('Dodaj pojazd', style: TextStyle(color: Colors.white)),
         ));
   }
 
   Future<Null> _selectDate(
-      BuildContext context, DateTime damageDate, Function onDatechanged) async {
+      BuildContext context, DateTime damageDate, Function onDateChanged) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: damageDate,
@@ -124,8 +125,8 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
         lastDate: damageDate.add(Duration(days: 365)));
 
     if (picked != null) {
-      this.damageDate = picked;
-      onDatechanged(picked);
+      this.date = picked;
+      onDateChanged(picked);
     }
   }
 }

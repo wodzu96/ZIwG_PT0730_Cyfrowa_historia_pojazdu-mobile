@@ -87,7 +87,7 @@ class CarFixCreateScreenState extends State<CarFixCreateScreen> {
 
   void _onCarFixCreateSuccess() {
     _setStateLoading(false);
-    widget.builder.showSuccessDialog(context, "Naprawa została dodana.", () {
+    widget.builder.showSuccessDialog(context, "Zmiana została dodana.", () {
       Navigator.of(context).pop();
     });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 abstract class CoreBuilder {
   Widget buildLoadingLayout(BuildContext context) {
@@ -65,6 +66,33 @@ abstract class CoreBuilder {
               onPressed: () {
                 Navigator.of(context).pop();
                 onClose();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showExitDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Wyjście"),
+          content: new Text("Czy na pewno chcesz opuścić aplikację?"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Anuluj"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Zamknij"),
+              onPressed: () {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
               },
             ),
           ],

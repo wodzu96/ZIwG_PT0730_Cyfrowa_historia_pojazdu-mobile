@@ -2,6 +2,7 @@ import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Car/car_page.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarCreate/car_create_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePageBuilder with CoreBuilder {
@@ -40,7 +41,8 @@ class HomePageBuilder with CoreBuilder {
       margin: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: new InkWell(
           onTap: () {
-            // TODO: Igor masz context nak...
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => CarCreateScreen()));
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
