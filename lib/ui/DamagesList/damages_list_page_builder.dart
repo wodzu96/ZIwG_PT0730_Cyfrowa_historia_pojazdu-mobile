@@ -1,6 +1,6 @@
 import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,7 @@ class DamagesPageBuilder with CoreBuilder {
 
   DamagesPageBuilder(this.car);
 
-  Widget buildRootLayout(BuildContext context, List<Damage> damages,
+  Widget buildRootLayout(BuildContext context, List<CarDamage> damages,
       Error error, Function refresh) {
     if (error != null)
       return buildRefreshableErrorLayout(context, error.toString(), refresh);
@@ -19,8 +19,8 @@ class DamagesPageBuilder with CoreBuilder {
       return buildLayout(context, damages, refresh);
   }
 
-  Widget buildLayout(
-      BuildContext context, List<Damage> damages, Function refresh) {
+  Widget buildLayout(BuildContext context, List<CarDamage> damages,
+      Function refresh) {
     return RefreshIndicator(
         onRefresh: refresh,
         child: ConstrainedBox(
@@ -31,13 +31,13 @@ class DamagesPageBuilder with CoreBuilder {
         ));
   }
 
-  List<Widget> getWidgetsInList(List<Damage> damages, Car car) {
+  List<Widget> getWidgetsInList(List<CarDamage> damages, Car car) {
     List<Widget> widgets = [_buildCarCard(car)];
     widgets.addAll(damages.map((damage) => _buildFixCard(damage)).toList());
     return widgets;
   }
 
-  Widget _buildFixCard(Damage damage) {
+  Widget _buildFixCard(CarDamage damage) {
     return Card(
         margin: EdgeInsets.only(left: 8, right: 8, top: 8),
         child: Column(

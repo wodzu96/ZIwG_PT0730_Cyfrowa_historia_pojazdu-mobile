@@ -1,7 +1,6 @@
 import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
 import 'package:cyfrowa_historia_pojazdu/core/core_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/DamagesList/damages_list_page_builder.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page_builder.dart';
@@ -11,7 +10,7 @@ class DamagesPage extends StatefulWidget
     implements CorePage<HomePageBuilder, FirebaseDatabaseService> {
   final Car car;
 
-  DamagesPage({Key, key, @required this.car}):super(key: key);
+  DamagesPage({Key, key, @required this.car}) : super(key: key);
 
   @override
   _DamagesPageState createState() => _DamagesPageState(car);
@@ -29,7 +28,7 @@ class _DamagesPageState extends State<DamagesPage>
 
   _DamagesPageState(this.car);
 
-  List<Damage> _damages;
+  List<CarDamage> _damages;
   Error _error;
 
   @override
@@ -43,13 +42,12 @@ class _DamagesPageState extends State<DamagesPage>
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder
-        .buildRootLayout(context, _damages, _error, _refresh);
+    return widget.builder.buildRootLayout(context, _damages, _error, _refresh);
   }
 
   Future<dynamic> _refresh() async {
     try {
-      List<Damage> damages = await widget.service.getCarDamages(car.name);
+      List<CarDamage> damages = await widget.service.getCarDamages(car.name);
       setState(() {
         _damages = damages;
         _error = null;

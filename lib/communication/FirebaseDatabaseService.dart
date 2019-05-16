@@ -1,7 +1,7 @@
 import 'package:cyfrowa_historia_pojazdu/common/generateMd5.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/Car.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/CarDamage.dart';
+import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
 import 'package:cyfrowa_historia_pojazdu/communication/model/userdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -27,7 +27,7 @@ class FirebaseDatabaseService {
     return reference.update(car.toJson());
   }
 
-  Future<UserData> getCurrentUser() async{
+  Future<UserData> getCurrentUser() async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance
         .reference()
@@ -49,7 +49,7 @@ class FirebaseDatabaseService {
     await reference.remove();
     return null;
   }
-  
+
   Future<Car> getCar(String carName) async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance
@@ -61,7 +61,7 @@ class FirebaseDatabaseService {
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
     return Car.fromMap(value);
-}
+  }
 
   Future<List<Car>> getCars() async {
     final currentUser = await FirebaseAuth.instance.currentUser();
@@ -138,7 +138,7 @@ class FirebaseDatabaseService {
     return list;
   }
 
-  Future<dynamic> addDamageToCar(Damage damage, String carName) async {
+  Future<dynamic> addDamageToCar(CarDamage damage, String carName) async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance
         .reference()
@@ -164,7 +164,7 @@ class FirebaseDatabaseService {
     return reference.remove();
   }
 
-  Future<Damage> getCarDamage(String damageName, String carName) async {
+  Future<CarDamage> getCarDamage(String damageName, String carName) async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance
         .reference()
@@ -176,10 +176,10 @@ class FirebaseDatabaseService {
         .child(generateMd5(damageName));
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
-    return Damage.fromMap(value);
+    return CarDamage.fromMap(value);
   }
 
-  Future<List<Damage>> getCarDamages(String carName) async {
+  Future<List<CarDamage>> getCarDamages(String carName) async {
     final currentUser = await FirebaseAuth.instance.currentUser();
     final reference = FirebaseDatabase.instance
         .reference()
@@ -190,9 +190,9 @@ class FirebaseDatabaseService {
         .child('damages');
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
-    List<Damage> list = [];
+    List<CarDamage> list = [];
     for (final key in value.keys) {
-      list.add(Damage.fromMap(value[key]));
+      list.add(CarDamage.fromMap(value[key]));
     }
     return list;
   }

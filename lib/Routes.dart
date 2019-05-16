@@ -1,8 +1,5 @@
-import 'package:cyfrowa_historia_pojazdu/communication/FirebaseDatabaseService.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/CarFix.dart';
-import 'package:cyfrowa_historia_pojazdu/communication/model/Demage.dart';
+import 'package:cyfrowa_historia_pojazdu/ui/CarDamageDetails/car_damage_details_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Home/home_page.dart';
-import 'package:cyfrowa_historia_pojazdu/ui/Login/login_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/SignUp/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +12,7 @@ class Routes {
   Routes() {
     runApp(new MaterialApp(
       title: "Flutter Flat App",
-      home: new LoginScreen(),
+      home: new CarDamageDetailsScreen(),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
