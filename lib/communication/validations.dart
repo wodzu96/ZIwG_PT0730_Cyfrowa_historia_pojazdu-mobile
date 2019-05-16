@@ -24,13 +24,8 @@ class Validations {
     return null;
   }
 
-  String validateNumber(String value) {
+  String validateEmpty(String value) {
     if (value.isEmpty) return 'Wymagane';
-    try {
-      int.parse(value);
-      return null;
-    } catch (error) {
-      return 'Wprowadź prawidłową wartość';
-    }
+    return null;
   }
 }

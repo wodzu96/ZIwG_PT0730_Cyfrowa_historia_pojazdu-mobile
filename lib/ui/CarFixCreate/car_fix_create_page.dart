@@ -58,11 +58,12 @@ class CarFixCreateScreenState extends State<CarFixCreateScreen> {
     });
   }
 
-  void _onCarFixCreateButtonPressed(String name, String description, int course,
-      DateTime fixDate, String fixCategoryName) {
+  void _onCarFixCreateButtonPressed(String name, String description,
+      String course) {
     if (_formKey.currentState.validate()) {
       _performCarFixCreate(
-          CarFix(name, description, course, fixDate, fixCategoryName),
+          CarFix(name, description, int.parse(course), this._fixDate,
+              this._fixCategory),
           widget.carName);
     } else {
       _setStateAutoValidateForm(true);

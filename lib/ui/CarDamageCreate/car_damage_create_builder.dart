@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class CarDamageCreateBuilder with CoreBuilder, Validations {
   String name;
   String description;
-  int course;
+  String course;
   DateTime damageDate;
 
   Widget buildRootLayout(
@@ -73,9 +73,9 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
               child: TextFormField(
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    return validateNumber(value);
+                    return validateEmpty(value);
                   },
-                  onSaved: (value) => this.course = int.parse(value),
+                  onSaved: (value) => this.course = value,
                   inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                       hintText: 'Podaj aktualny przebieg',
@@ -89,7 +89,7 @@ class CarDamageCreateBuilder with CoreBuilder, Validations {
                     controller: TextEditingController(
                         text: damageDate.toString().substring(0, 10)),
                     decoration: InputDecoration(
-                        hintText: 'Dotknij, aby podac datę',
+                        hintText: 'Dotknij, aby wybrać datę',
                         labelText: "Data powstania usterki")),
               ),
             ),

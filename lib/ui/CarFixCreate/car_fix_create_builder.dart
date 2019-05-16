@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class CarFixCreateBuilder with CoreBuilder, Validations {
   String name;
   String description;
-  int course;
+  String course;
   DateTime fixDate;
 
   Widget buildRootLayout(
@@ -16,12 +16,21 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
       bool formAutoValidate,
       Function onSignupButtonPressed,
       fixDate,
-      onDateChanged) {
+      onDateChanged,
+      String fixCategory,
+      Function onCategoryChanged) {
     if (isLoading)
       return buildLoadingLayout(context);
     else
-      return buildDefaultLayout(formKey, formAutoValidate,
-          onSignupButtonPressed, context, fixDate, onDateChanged);
+      return buildDefaultLayout(
+          formKey,
+          formAutoValidate,
+          onSignupButtonPressed,
+          context,
+          fixDate,
+          onDateChanged,
+          fixCategory,
+          onCategoryChanged);
   }
 
   Widget buildDefaultLayout(
@@ -30,21 +39,34 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
       Function onSignupButtonPressed,
       BuildContext context,
       DateTime fixDate,
-      Function onDateChanged) {
+      Function onDateChanged,
+      String fixCategory,
+      Function onCategoryChanged) {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 32.0),
       children: <Widget>[
         SizedBox(height: 32.0),
         buildLoginForm(
-            formKey, formAutoValidate, context, fixDate, onDateChanged),
+            formKey,
+            formAutoValidate,
+            context,
+            fixDate,
+            onDateChanged,
+            fixCategory,
+            onCategoryChanged),
         SizedBox(height: 32.0),
         buildSignupButton(formKey, onSignupButtonPressed)
       ],
     );
   }
 
-  Widget buildLoginForm(GlobalKey<FormState> formKey, bool formAutoValidate,
-      BuildContext context, DateTime fixDate, Function onDateChanged) {
+  Widget buildLoginForm(GlobalKey<FormState> formKey,
+      bool formAutoValidate,
+      BuildContext context,
+      DateTime fixDate,
+      Function onDateChanged,
+      String fixCategory,
+      Function onCategoryChanged) {
     return Form(
       key: formKey,
       autovalidate: formAutoValidate,
@@ -73,9 +95,9 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
               child: TextFormField(
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    return validateNumber(value);
+                    return validateEmpty(value);
                   },
-                  onSaved: (value) => this.course = int.parse(value),
+                  onSaved: (value) => this.course = value,
                   inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                       hintText: 'Podaj aktualny przebieg',
@@ -89,8 +111,25 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
                     controller: TextEditingController(
                         text: fixDate.toString().substring(0, 10)),
                     decoration: InputDecoration(
-                        hintText: 'Dotknij, aby wybrac datę',
+                        hintText: 'Dotknij, aby wybrać datę',
                         labelText: "Data wykonania naprawy")),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 80.0,
+            child: GestureDetector(
+              onTap: () =>
+                  showCategorySelectionDialog(context, onCategoryChanged),
+              child: AbsorbPointer(
+                child: TextFormField(
+                    validator: (value) {
+                      return validateName(value);
+                    },
+                    controller: TextEditingController(text: fixCategory),
+                    decoration: InputDecoration(
+                        hintText: 'Dotknij, aby wybrac kategorię',
+                        labelText: "Kategoria")),
               ),
             ),
           )
@@ -115,8 +154,8 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
         ));
   }
 
-  Future<Null> _selectDate(
-      BuildContext context, DateTime fixDate, Function onDatechanged) async {
+  Future<Null> _selectDate(BuildContext context, DateTime fixDate,
+      Function onDateChanged) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: fixDate,
@@ -125,7 +164,48 @@ class CarFixCreateBuilder with CoreBuilder, Validations {
 
     if (picked != null) {
       this.fixDate = picked;
-      onDatechanged(picked);
+      onDateChanged(picked);
     }
+  }
+
+  void showCategorySelectionDialog(BuildContext context,
+      Function onCategoryChanged) {
+    SimpleDialog dialog = SimpleDialog(
+      title: const Text('Wybierz kategorię'),
+      children: <Widget>[
+        getOption(context, 'Elektronika i Elektryka', onCategoryChanged),
+        getOption(context, 'Hydraulika', onCategoryChanged),
+        getOption(context, 'Nadwozie', onCategoryChanged),
+        getOption(context, 'Naprawy drobne', onCategoryChanged),
+        getOption(context, 'Inne', onCategoryChanged),
+        getOption(context, 'Światła', onCategoryChanged),
+        getOption(context, 'Zawieszenie', onCategoryChanged),
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
+  }
+
+  SimpleDialogOption getOption(BuildContext context, String category,
+      Function onCategoryChanged) {
+    return SimpleDialogOption(
+        child: SizedBox(
+          height: 40,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[Text(category)],
+          ),
+        ),
+        onPressed: () {
+          onCategoryChanged(category);
+          Navigator.of(context).pop();
+        });
   }
 }
