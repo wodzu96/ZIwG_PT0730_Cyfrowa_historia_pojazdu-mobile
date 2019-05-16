@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 
 class CarDamageDetailsScreen extends StatefulWidget
     implements CorePage<CarDamageDetailsBuilder, CarDamageDetailsService> {
-  const CarDamageDetailsScreen({Key key}) : super(key: key);
+  final CarDamage carDamage;
+  final String carName;
+  CarDamageDetailsScreen({Key key,  @required this.carDamage, @required this.carName}) : super(key: key);
 
   @override
-  CarDamageDetailsScreenState createState() =>
-      new CarDamageDetailsScreenState();
+  _CarDamageDetailsScreenState createState() =>  _CarDamageDetailsScreenState(carDamage, carName);
 
   @override
   get builder => CarDamageDetailsBuilder();
@@ -19,26 +20,35 @@ class CarDamageDetailsScreen extends StatefulWidget
   get service => CarDamageDetailsService();
 }
 
-class CarDamageDetailsScreenState extends State<CarDamageDetailsScreen> {
-  bool _isLoading = false;
-  CarDamage _carDamage = CarDamage(
-      "NAPR82764",
-      "Auto po zderzeniu czołowym z helikopterem AH-64, przy prędkości około 367,5km/h, wymienione wszystko poza lusterkiem przednim lewym",
-      100000,
-      DateTime.now());
+class _CarDamageDetailsScreenState extends State<CarDamageDetailsScreen> {
+  CarDamage _carDamage;
+  String _carName;
+
+  _CarDamageDetailsScreenState(this._carDamage, this._carName);
+  bool _isLoading = true;
+
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         primary: true,
         appBar: AppBar(
-          title: Text("Szczegóły naprawy"),
+          title: Text("Szczegóły uszkodzenia"),
         ),
         body: widget.builder
-            .buildRootLayout(context, _isLoading, _refresh, _carDamage));
+            .buildRootLayout(widget.service, _carName, context, _isLoading, _refresh, _carDamage));
+  }
+
+  @override
+  void initState() {
+    _refresh();
+    super.initState();
   }
 
   Future<dynamic> _refresh() async {
+    _setStateCarDamage(_carDamage);
+    _setStateLoading(false);
+    
     return Future;
   }
 
@@ -50,7 +60,7 @@ class CarDamageDetailsScreenState extends State<CarDamageDetailsScreen> {
 
   void _setStateCarDamage(CarDamage carDamage) {
     setState(() {
-      _carDamage = carDamage;
+      this._carDamage = carDamage;
     });
   }
 }

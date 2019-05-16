@@ -73,8 +73,10 @@ class FirebaseDatabaseService {
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
     List<Car> list = [];
-    for (final key in value.keys) {
-      list.add(Car.fromMap(value[key]));
+    if (value != null) {
+      for (final key in value.keys) {
+        list.add(Car.fromMap(value[key]));
+      }
     }
     return list;
   }
@@ -132,8 +134,10 @@ class FirebaseDatabaseService {
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
     List<CarFix> list = [];
-    for (final key in value.keys) {
-      list.add(CarFix.fromMap(value[key]));
+    if (value != null) {
+      for (final key in value.keys) {
+        list.add(CarFix.fromMap(value[key]));
+      }
     }
     return list;
   }
@@ -191,8 +195,10 @@ class FirebaseDatabaseService {
     DataSnapshot snapshot = await reference.once();
     final value = snapshot.value as Map;
     List<CarDamage> list = [];
-    for (final key in value.keys) {
-      list.add(CarDamage.fromMap(value[key]));
+    if (value != null) {
+      for (final key in value.keys) {
+        list.add(CarDamage.fromMap(value[key]));
+      }
     }
     return list;
   }

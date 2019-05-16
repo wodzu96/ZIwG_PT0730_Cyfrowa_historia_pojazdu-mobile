@@ -1,6 +1,7 @@
 import 'package:cyfrowa_historia_pojazdu/core/core_page.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_builder.dart';
 import 'package:cyfrowa_historia_pojazdu/ui/Login/login_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget
@@ -21,6 +22,13 @@ class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _formAutoValidate = false;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _checkIfLoggedIn();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,5 +91,11 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       _formAutoValidate = autoValidate;
     });
+  }
+
+  Future<dynamic> _checkIfLoggedIn()async {
+    if(await FirebaseAuth.instance.currentUser() != null){
+      Navigator.of(context).pushNamed("/HomePage");
+    }
   }
 }

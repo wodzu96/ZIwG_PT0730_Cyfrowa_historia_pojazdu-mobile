@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 
 class CarFixDetailsScreen extends StatefulWidget
     implements CorePage<CarFixDetailsBuilder, CarFixDetailsService> {
-  const CarFixDetailsScreen({Key key}) : super(key: key);
+  final CarFix carFix;
+  final String carName;
+  CarFixDetailsScreen({Key key,  @required this.carFix, @required this.carName}) : super(key: key);
 
   @override
-  CarFixDetailsScreenState createState() => new CarFixDetailsScreenState();
+  CarFixDetailsScreenState createState() => new CarFixDetailsScreenState(carFix, carName);
 
   @override
   get builder => CarFixDetailsBuilder();
@@ -19,23 +21,22 @@ class CarFixDetailsScreen extends StatefulWidget
 }
 
 class CarFixDetailsScreenState extends State<CarFixDetailsScreen> {
+  CarFix carFix;
+  String _carName;
+
+  CarFixDetailsScreenState(this.carFix, this._carName);
   bool _isLoading = false;
-  CarFix _carFix = CarFix(
-      "NAPR82764",
-      "Auto po zderzeniu czołowym z helikopterem AH-64, przy prędkości około 367,5km/h, wymienione wszystko poza lusterkiem przednim lewym",
-      100000,
-      DateTime.now(),
-      "Przypadki beznadziejne");
+
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         primary: true,
         appBar: AppBar(
-          title: Text("Szczegóły naprawy"),
+          title: Text("Szczegóły zmiany"),
         ),
         body: widget.builder
-            .buildRootLayout(context, _isLoading, _refresh, _carFix));
+            .buildRootLayout(widget.service, _carName, context, _isLoading, _refresh, carFix));
   }
 
   Future<dynamic> _refresh() async {
@@ -50,7 +51,7 @@ class CarFixDetailsScreenState extends State<CarFixDetailsScreen> {
 
   void _setStateCarFix(CarFix carFix) {
     setState(() {
-      _carFix = carFix;
+      this.carFix = carFix;
     });
   }
 }
