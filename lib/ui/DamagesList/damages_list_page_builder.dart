@@ -19,8 +19,8 @@ class DamagesPageBuilder with CoreBuilder {
       return buildLayout(context, damages, refresh);
   }
 
-  Widget buildLayout(BuildContext context, List<CarDamage> damages,
-      Function refresh) {
+  Widget buildLayout(
+      BuildContext context, List<CarDamage> damages, Function refresh) {
     return RefreshIndicator(
         onRefresh: refresh,
         child: ConstrainedBox(
