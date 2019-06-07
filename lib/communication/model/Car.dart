@@ -1,5 +1,4 @@
 import 'package:cyfrowa_historia_pojazdu/common/dateTimeFormatter.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class Car {
   String name;
